@@ -1,6 +1,6 @@
-# Warikan Netflix App
+# konva-playground
 
-This is warikan-netflix monorepo app.
+This is konva-playground monorepo app.
 
 ## What's inside?
 

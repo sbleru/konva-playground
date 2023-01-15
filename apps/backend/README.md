@@ -1,6 +1,6 @@
 # backend
 
-APIs for warikan-netflix
+APIs
 
 ## Usage
 

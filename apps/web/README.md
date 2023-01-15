@@ -1,3 +1,3 @@
-# warikan-netflix web
+# web
 
-Frontend of warikan-netflix
+Frontend

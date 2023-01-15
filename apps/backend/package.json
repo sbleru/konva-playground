@@ -26,15 +26,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sbleru/warikan-netflix.git"
+    "url": "git+https://github.com/sbleru/konva-playground.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sbleru/warikan-netflix/issues"
+    "url": "https://github.com/sbleru/konva-playground/issues"
   },
-  "homepage": "https://github.com/sbleru/warikan-netflix#readme",
+  "homepage": "https://github.com/sbleru/konva-playground#readme",
   "dependencies": {
     "commander": "^9.4.1",
     "firebase-admin": "^11.3.0",
