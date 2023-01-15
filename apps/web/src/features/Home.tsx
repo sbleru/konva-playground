@@ -1,46 +1,74 @@
-import { Button, Center, Heading, Image, Link, VStack } from "ui";
+import React from 'react';
+import { Stage, Layer, Star, Text } from 'react-konva';
 
-export const Home = () => {
-  // FIXME use vercel env
-  const priceId = "price_1LIR9XASQM55JB5snSyVU1Uq"; // 月額
-  const url = `https://us-central1-fir-no-1904e.cloudfunctions.net/subscribeWarikan?priceId=${priceId}`;
+function generateShapes() {
+  return [...Array(10)].map((_, i) => ({
+    id: i.toString(),
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    rotation: Math.random() * 180,
+    isDragging: false,
+  }));
+}
+
+const INITIAL_STATE = generateShapes();
+
+const Home = () => {
+  const [stars, setStars] = React.useState(INITIAL_STATE);
+
+  const handleDragStart = (e) => {
+    const id = e.target.id();
+    setStars(
+      stars.map((star) => {
+        return {
+          ...star,
+          isDragging: star.id === id,
+        };
+      })
+    );
+  };
+  const handleDragEnd = (e) => {
+    setStars(
+      stars.map((star) => {
+        return {
+          ...star,
+          isDragging: false,
+        };
+      })
+    );
+  };
 
   return (
-    <Center
-      minH={"100vh"}
-      backgroundColor="#282c34"
-      display={"flex"}
-      flexDir={"column"}
-      alignItems={"center"}
-      justifyContent={"center"}
-      fontSize={"xl"}
-      color={"white"}
-    >
-      <VStack spacing={"4"}>
-        <Image
-          src={"/images/netflix-seeklogo.com.svg"}
-          alt="logo"
-          h={"40vmin"}
-          pointerEvents={"none"}
-        />
-        <Heading>Netflix割り勘</Heading>
-        <Heading>Netflixプレミアム月額1980円 / 3人 = 660円</Heading>
-        <Heading>
-          <LinkArea href={url}>
-            <Button variant={"primary"}>サブスクで割り勘する</Button>
-          </LinkArea>
-        </Heading>
-      </VStack>
-    </Center>
+    <Stage width={window.innerWidth} height={window.innerHeight}>
+      <Layer>
+        <Text text="Try to drag a star" />
+        {stars.map((star) => (
+          <Star
+            key={star.id}
+            id={star.id}
+            x={star.x}
+            y={star.y}
+            numPoints={5}
+            innerRadius={20}
+            outerRadius={40}
+            fill="#89b717"
+            opacity={0.8}
+            draggable
+            rotation={star.rotation}
+            shadowColor="black"
+            shadowBlur={10}
+            shadowOpacity={0.6}
+            shadowOffsetX={star.isDragging ? 10 : 5}
+            shadowOffsetY={star.isDragging ? 10 : 5}
+            scaleX={star.isDragging ? 1.2 : 1}
+            scaleY={star.isDragging ? 1.2 : 1}
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
+          />
+        ))}
+      </Layer>
+    </Stage>
   );
 };
 
-const LinkArea: React.FC<{
-  href: string;
-  isExternal?: boolean;
-  children: React.ReactNode;
-}> = ({ href, isExternal = false, children }) => (
-  <Link href={href} isExternal={isExternal}>
-    {children}
-  </Link>
-);
+export default Home
